@@ -382,19 +382,28 @@
      </div>
      <form id="loginForm" onsubmit="handleLogin(event)">
       <div id="studentLogin">
-       <div class="mb-6"><label for="studentCode" class="block text-sm font-semibold text-gray-700 mb-2">كود الدارس</label> <input type="text" id="studentCode" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="مثال: DQ34ZA54">
+       <div class="mb-6"><label for="studentCode" class="block text-sm font-semibold text-gray-700 mb-2">كود الدارس</label> <input type="text" id="studentCode" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="أدخل كود الدارس الخاص بك">
+       </div>
+       <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+        <p class="text-xs text-blue-700">💡 <strong>ملاحظة:</strong> كود الدارس يتم تسليمه لك من قبل إدارة المركز عند التسجيل</p>
        </div>
       </div>
       <div id="teacherLogin" class="hidden">
-       <div class="mb-4"><label for="teacherCode" class="block text-sm font-semibold text-gray-700 mb-2">كود الخادم</label> <input type="text" id="teacherCode" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="مثال: FZ64SZ56">
+       <div class="mb-4"><label for="teacherCode" class="block text-sm font-semibold text-gray-700 mb-2">كود الخادم</label> <input type="text" id="teacherCode" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="أدخل كود الخادم">
        </div>
        <div class="mb-6"><label for="teacherPassword" class="block text-sm font-semibold text-gray-700 mb-2">كلمة المرور</label> <input type="password" id="teacherPassword" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="أدخل كلمة المرور">
        </div>
+       <div class="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
+        <p class="text-xs text-green-700">💡 <strong>ملاحظة:</strong> كود الخادم وكلمة المرور يتم تسليمهما لك من قبل إدارة المركز</p>
+       </div>
       </div>
       <div id="adminLogin" class="hidden">
-       <div class="mb-4"><label for="adminUsername" class="block text-sm font-semibold text-gray-700 mb-2">اسم المستخدم</label> <input type="text" id="adminUsername" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="ADMIN">
+       <div class="mb-4"><label for="adminUsername" class="block text-sm font-semibold text-gray-700 mb-2">اسم المستخدم</label> <input type="text" id="adminUsername" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="أدخل اسم المستخدم">
        </div>
-       <div class="mb-6"><label for="adminPassword" class="block text-sm font-semibold text-gray-700 mb-2">كلمة المرور</label> <input type="password" id="adminPassword" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="admin123">
+       <div class="mb-6"><label for="adminPassword" class="block text-sm font-semibold text-gray-700 mb-2">كلمة المرور</label> <input type="password" id="adminPassword" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="أدخل كلمة المرور">
+       </div>
+       <div class="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+        <p class="text-xs text-red-700">🔒 <strong>تنبيه أمني:</strong> بيانات الدخول للإدارة سرية للغاية ولا يجب مشاركتها مع أي شخص</p>
        </div>
       </div><button type="submit" id="loginButton" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"> <span class="flex items-center justify-center gap-2"> <span id="loginButtonText">تسجيل دخول الدارس</span>
         <div id="loginSpinner" class="loading-spinner hidden"></div></span> </button>
@@ -2561,7 +2570,7 @@
                                             <div class="flex justify-between items-start mb-3">
                                                 <div class="flex-1">
                                                     <div class="flex items-center gap-3 mb-2">
-                                                        <span class="text-2xl">📝</span>
+                                                        <span class="text-2xl">${hw.homeworkType === 'audio' ? '🎤' : hw.homeworkType === 'image' ? '📷' : '📝'}</span>
                                                         <div>
                                                             <h4 class="text-lg font-bold text-gray-800">
                                                                 ${hw.studentName} - الواجب ${hw.homeworkNumber}
@@ -2569,11 +2578,34 @@
                                                             <p class="text-sm text-gray-600">
                                                                 📅 تاريخ التسليم: ${submittedDate.toLocaleDateString('ar-EG')} - ${submittedDate.toLocaleTimeString('ar-EG', {hour: '2-digit', minute: '2-digit'})}
                                                             </p>
+                                                            <p class="text-xs text-purple-600 font-semibold mt-1">
+                                                                ${hw.homeworkType === 'audio' ? '🎤 تسميع ألحان (صوتي)' : hw.homeworkType === 'image' ? '📷 واجب مصور' : '📝 واجب كتابي'}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                     <div class="bg-white rounded-lg p-4 mt-3">
                                                         <h5 class="font-semibold text-gray-700 mb-2">محتوى الواجب:</h5>
-                                                        <p class="text-sm text-gray-700 whitespace-pre-wrap">${hw.content}</p>
+                                                        ${hw.homeworkType === 'written' ? `
+                                                            <p class="text-sm text-gray-700 whitespace-pre-wrap">${hw.content}</p>
+                                                        ` : hw.homeworkType === 'image' ? `
+                                                            <div class="text-center">
+                                                                <img src="${hw.imageData}" alt="صورة الواجب" class="max-w-full max-h-96 mx-auto rounded-lg border-2 border-gray-300 mb-2">
+                                                                <p class="text-xs text-gray-600">${hw.imageName}</p>
+                                                            </div>
+                                                        ` : hw.homeworkType === 'audio' ? `
+                                                            <div class="bg-purple-50 border-2 border-purple-300 rounded-lg p-4">
+                                                                <div class="flex items-center gap-3 mb-3">
+                                                                    <span class="text-3xl">🎤</span>
+                                                                    <div>
+                                                                        <h5 class="font-bold text-purple-800">تسميع اللحن الأسبوعي</h5>
+                                                                        <p class="text-xs text-purple-600">استمع للتسجيل الصوتي</p>
+                                                                    </div>
+                                                                </div>
+                                                                <audio controls class="w-full" src="${hw.audioData}"></audio>
+                                                            </div>
+                                                        ` : `
+                                                            <p class="text-sm text-gray-700">${hw.content}</p>
+                                                        `}
                                                     </div>
                                                 </div>
                                             </div>
@@ -2689,17 +2721,40 @@
                 <form id="gradeHomeworkForm" onsubmit="saveHomeworkGrade(event, '${homeworkId}')" class="space-y-4">
                     <div class="bg-blue-50 border-2 border-blue-300 rounded-lg p-4 mb-4">
                         <div class="flex items-center gap-3 mb-3">
-                            <span class="text-3xl">📚</span>
+                            <span class="text-3xl">${hw.homeworkType === 'audio' ? '🎤' : hw.homeworkType === 'image' ? '📷' : '📚'}</span>
                             <div>
                                 <h4 class="font-bold text-blue-800">الواجب ${hw.homeworkNumber}</h4>
                                 <p class="text-sm text-blue-600">الطالب: ${hw.studentName}</p>
                                 <p class="text-sm text-blue-600">تاريخ التسليم: ${new Date(hw.submittedAt).toLocaleDateString('ar-EG')}</p>
+                                <p class="text-xs text-purple-600 font-semibold mt-1">
+                                    ${hw.homeworkType === 'audio' ? '🎤 تسميع ألحان (صوتي)' : hw.homeworkType === 'image' ? '📷 واجب مصور' : '📝 واجب كتابي'}
+                                </p>
                             </div>
                         </div>
                         
                         <div class="bg-white rounded-lg p-4">
                             <h5 class="font-semibold text-gray-700 mb-2">محتوى الواجب:</h5>
-                            <p class="text-sm text-gray-700 whitespace-pre-wrap max-h-60 overflow-y-auto">${hw.content}</p>
+                            ${hw.homeworkType === 'written' ? `
+                                <p class="text-sm text-gray-700 whitespace-pre-wrap max-h-60 overflow-y-auto">${hw.content}</p>
+                            ` : hw.homeworkType === 'image' ? `
+                                <div class="text-center max-h-96 overflow-y-auto">
+                                    <img src="${hw.imageData}" alt="صورة الواجب" class="max-w-full mx-auto rounded-lg border-2 border-gray-300 mb-2">
+                                    <p class="text-xs text-gray-600">${hw.imageName}</p>
+                                </div>
+                            ` : hw.homeworkType === 'audio' ? `
+                                <div class="bg-purple-50 border-2 border-purple-300 rounded-lg p-4">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <span class="text-3xl">🎤</span>
+                                        <div>
+                                            <h5 class="font-bold text-purple-800">تسميع اللحن الأسبوعي</h5>
+                                            <p class="text-xs text-purple-600">استمع للتسجيل الصوتي بعناية قبل التقييم</p>
+                                        </div>
+                                    </div>
+                                    <audio controls class="w-full" src="${hw.audioData}"></audio>
+                                </div>
+                            ` : `
+                                <p class="text-sm text-gray-700 whitespace-pre-wrap max-h-60 overflow-y-auto">${hw.content}</p>
+                            `}
                         </div>
                     </div>
                     
@@ -3476,11 +3531,23 @@
                     
                     <input type="hidden" name="homeworkNumber" value="${nextNumber}">
                     
+                    <!-- Homework Type Selection -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">محتوى الواجب *</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">نوع الواجب *</label>
+                        <select name="homeworkType" id="homeworkType" onchange="toggleHomeworkInputs()" required class="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="">اختر نوع الواجب...</option>
+                            <option value="written">واجب كتابي (نص)</option>
+                            <option value="image">واجب مصور (صورة)</option>
+                            <option value="audio">تسميع ألحان (تسجيل صوتي)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Written Homework -->
+                    <div id="writtenHomework" class="hidden">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">محتوى الواجب الكتابي *</label>
                         <textarea 
                             name="content" 
-                            required 
+                            id="homeworkContent"
                             rows="8"
                             class="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             placeholder="اكتب محتوى الواجب هنا...&#10;&#10;يمكنك كتابة:&#10;• إجابات الأسئلة&#10;• ملخصات الدروس&#10;• الحفظ والمراجعة&#10;• أي محتوى تعليمي آخر"
@@ -3490,12 +3557,85 @@
                         </p>
                     </div>
                     
+                    <!-- Image Homework -->
+                    <div id="imageHomework" class="hidden">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">صورة الواجب *</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                            <input 
+                                type="file" 
+                                id="homeworkImage" 
+                                name="homeworkImage"
+                                accept="image/*"
+                                onchange="previewImage(event)"
+                                class="hidden"
+                            >
+                            <button type="button" onclick="document.getElementById('homeworkImage').click()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold mb-3">
+                                📷 اختر صورة الواجب
+                            </button>
+                            <p class="text-xs text-gray-500 mb-3">
+                                يمكنك رفع صورة واضحة لحل الواجب (JPG, PNG)
+                            </p>
+                            <div id="imagePreview" class="hidden mt-4">
+                                <img id="previewImg" src="" alt="معاينة الصورة" class="max-w-full max-h-64 mx-auto rounded-lg border-2 border-gray-300">
+                                <button type="button" onclick="removeImage()" class="mt-2 text-red-600 hover:text-red-800 text-sm">
+                                    🗑️ إزالة الصورة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Audio Homework (Hymn Recording) -->
+                    <div id="audioHomework" class="hidden">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">تسجيل تسميع اللحن *</label>
+                        <div class="border-2 border-purple-300 bg-purple-50 rounded-lg p-6">
+                            <div class="text-center mb-4">
+                                <div class="text-4xl mb-2">🎤</div>
+                                <h4 class="font-bold text-purple-800 mb-2">تسجيل اللحن الأسبوعي</h4>
+                                <p class="text-sm text-purple-700">اضغط على زر التسجيل وابدأ في تسميع اللحن</p>
+                            </div>
+                            
+                            <div class="flex justify-center gap-3 mb-4">
+                                <button type="button" id="startRecording" onclick="startRecording()" class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 font-semibold">
+                                    🔴 بدء التسجيل
+                                </button>
+                                <button type="button" id="stopRecording" onclick="stopRecording()" disabled class="bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold">
+                                    ⏹️ إيقاف التسجيل
+                                </button>
+                            </div>
+                            
+                            <div id="recordingStatus" class="text-center text-sm text-gray-600 mb-3">
+                                جاهز للتسجيل
+                            </div>
+                            
+                            <div id="audioPreview" class="hidden">
+                                <div class="bg-white rounded-lg p-4 border-2 border-purple-300">
+                                    <p class="text-sm font-semibold text-purple-800 mb-2">معاينة التسجيل:</p>
+                                    <audio id="audioPlayer" controls class="w-full mb-2"></audio>
+                                    <button type="button" onclick="removeAudio()" class="text-red-600 hover:text-red-800 text-sm">
+                                        🗑️ حذف التسجيل وإعادة التسجيل
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 bg-white rounded-lg p-3 border border-purple-200">
+                                <p class="text-xs text-purple-700">
+                                    💡 <strong>نصائح للتسجيل:</strong><br>
+                                    • تأكد من وجودك في مكان هادئ<br>
+                                    • اقترب من الميكروفون<br>
+                                    • سمّع اللحن بصوت واضح ومسموع<br>
+                                    • يمكنك إعادة التسجيل إذا لم تكن راضياً عن النتيجة
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4">
                         <h4 class="font-bold text-yellow-800 mb-2">⚠️ تنبيه</h4>
                         <ul class="text-sm text-yellow-700 space-y-1">
-                            <li>• تأكد من كتابة الواجب بشكل صحيح قبل الإرسال</li>
+                            <li>• تأكد من اختيار نوع الواجب المناسب</li>
+                            <li>• تأكد من وضوح الصورة أو التسجيل الصوتي</li>
                             <li>• لا يمكن تعديل الواجب بعد الإرسال</li>
-                            <li>• سيتم إرسال الواجب فوراً للخادم المسؤول</li>
+                            <li>• سيتم إرسال الواجب للخادم المسؤول والخادم الإداري</li>
                         </ul>
                     </div>
                     
@@ -3503,7 +3643,7 @@
                         <button type="button" onclick="closeModal()" class="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 font-semibold">
                             إلغاء
                         </button>
-                        <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold">
+                        <button type="submit" id="submitHomeworkBtn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold">
                             📤 إرسال الواجب
                         </button>
                     </div>
@@ -3511,31 +3651,180 @@
             `);
         }
         
+        // Toggle Homework Inputs based on type
+        function toggleHomeworkInputs() {
+            const type = document.getElementById('homeworkType').value;
+            
+            document.getElementById('writtenHomework').classList.add('hidden');
+            document.getElementById('imageHomework').classList.add('hidden');
+            document.getElementById('audioHomework').classList.add('hidden');
+            
+            // Reset required attributes
+            document.getElementById('homeworkContent').removeAttribute('required');
+            document.getElementById('homeworkImage').removeAttribute('required');
+            
+            if (type === 'written') {
+                document.getElementById('writtenHomework').classList.remove('hidden');
+                document.getElementById('homeworkContent').setAttribute('required', 'required');
+            } else if (type === 'image') {
+                document.getElementById('imageHomework').classList.remove('hidden');
+                document.getElementById('homeworkImage').setAttribute('required', 'required');
+            } else if (type === 'audio') {
+                document.getElementById('audioHomework').classList.remove('hidden');
+            }
+        }
+        
+        // Image Preview
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImg').src = e.target.result;
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function removeImage() {
+            document.getElementById('homeworkImage').value = '';
+            document.getElementById('imagePreview').classList.add('hidden');
+            document.getElementById('previewImg').src = '';
+        }
+        
+        // Audio Recording
+        let mediaRecorder;
+        let audioChunks = [];
+        let recordedAudioBlob = null;
+        
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+                
+                mediaRecorder.onstop = () => {
+                    recordedAudioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(recordedAudioBlob);
+                    document.getElementById('audioPlayer').src = audioUrl;
+                    document.getElementById('audioPreview').classList.remove('hidden');
+                    document.getElementById('recordingStatus').textContent = 'تم التسجيل بنجاح ✅';
+                    
+                    // Stop all tracks
+                    stream.getTracks().forEach(track => track.stop());
+                };
+                
+                mediaRecorder.start();
+                document.getElementById('startRecording').disabled = true;
+                document.getElementById('stopRecording').disabled = false;
+                document.getElementById('recordingStatus').textContent = '🔴 جاري التسجيل...';
+                
+            } catch (error) {
+                console.error('خطأ في الوصول للميكروفون:', error);
+                showToast('لا يمكن الوصول للميكروفون. تأكد من السماح بالوصول للميكروفون', 'error');
+            }
+        }
+        
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                document.getElementById('startRecording').disabled = false;
+                document.getElementById('stopRecording').disabled = true;
+            }
+        }
+        
+        function removeAudio() {
+            recordedAudioBlob = null;
+            document.getElementById('audioPlayer').src = '';
+            document.getElementById('audioPreview').classList.add('hidden');
+            document.getElementById('recordingStatus').textContent = 'جاهز للتسجيل';
+        }
+        
         // Submit Homework
-        function submitHomework(event) {
+        async function submitHomework(event) {
             event.preventDefault();
             
             const formData = new FormData(event.target);
             const student = currentUser.data;
             const homework = loadFromStorage(STORAGE_KEYS.HOMEWORK, []);
+            const homeworkType = formData.get('homeworkType');
             
-            const newHomework = {
-                id: generateCode('HW'),
-                studentCode: student.code,
-                studentName: student.name,
-                className: student.className,
-                homeworkNumber: parseInt(formData.get('homeworkNumber')),
-                content: formData.get('content'),
-                submittedAt: new Date().toISOString(),
-                status: 'pending' // pending, graded
-            };
+            // Validate based on homework type
+            if (homeworkType === 'audio' && !recordedAudioBlob) {
+                showToast('يرجى تسجيل اللحن أولاً', 'error');
+                return;
+            }
             
-            homework.push(newHomework);
+            if (homeworkType === 'image' && !document.getElementById('homeworkImage').files[0]) {
+                showToast('يرجى اختيار صورة الواجب', 'error');
+                return;
+            }
             
-            if (saveToStorage(STORAGE_KEYS.HOMEWORK, homework)) {
-                showToast(`✅ تم إرسال الواجب ${newHomework.homeworkNumber} بنجاح للخادم`, 'success');
-                closeModal();
-                showStudentHomework();
+            // Disable submit button
+            const submitBtn = document.getElementById('submitHomeworkBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading-spinner inline-block"></span> جاري الإرسال...';
+            
+            try {
+                const newHomework = {
+                    id: generateCode('HW'),
+                    studentCode: student.code,
+                    studentName: student.name,
+                    className: student.className,
+                    homeworkNumber: parseInt(formData.get('homeworkNumber')),
+                    homeworkType: homeworkType,
+                    submittedAt: new Date().toISOString(),
+                    status: 'pending' // pending, graded
+                };
+                
+                // Handle different homework types
+                if (homeworkType === 'written') {
+                    newHomework.content = formData.get('content');
+                } else if (homeworkType === 'image') {
+                    const imageFile = document.getElementById('homeworkImage').files[0];
+                    const reader = new FileReader();
+                    
+                    await new Promise((resolve, reject) => {
+                        reader.onload = function(e) {
+                            newHomework.imageData = e.target.result;
+                            newHomework.imageName = imageFile.name;
+                            newHomework.content = `صورة الواجب: ${imageFile.name}`;
+                            resolve();
+                        };
+                        reader.onerror = reject;
+                        reader.readAsDataURL(imageFile);
+                    });
+                } else if (homeworkType === 'audio') {
+                    const reader = new FileReader();
+                    
+                    await new Promise((resolve, reject) => {
+                        reader.onload = function(e) {
+                            newHomework.audioData = e.target.result;
+                            newHomework.content = `تسجيل صوتي - تسميع اللحن الأسبوعي`;
+                            resolve();
+                        };
+                        reader.onerror = reject;
+                        reader.readAsDataURL(recordedAudioBlob);
+                    });
+                }
+                
+                homework.push(newHomework);
+                
+                if (saveToStorage(STORAGE_KEYS.HOMEWORK, homework)) {
+                    showToast(`✅ تم إرسال الواجب ${newHomework.homeworkNumber} بنجاح للخادم المسؤول والخادم الإداري`, 'success');
+                    closeModal();
+                    showStudentHomework();
+                }
+            } catch (error) {
+                console.error('خطأ في إرسال الواجب:', error);
+                showToast('حدث خطأ أثناء إرسال الواجب', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '📤 إرسال الواجب';
             }
         }
         
@@ -4006,5 +4295,5 @@
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', initializeSystem);
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99d7de1b201e73af',t:'MTc2Mjk2OTc4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99d815fc977be1f1',t:'MTc2Mjk3MjA3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
